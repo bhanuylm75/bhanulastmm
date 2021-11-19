@@ -1,0 +1,10 @@
+.result-inner {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #cbd5e1;
+  list-style-type: none;
+  justify-content: space-between;
+  padding: 6px;
+}
