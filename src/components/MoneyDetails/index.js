@@ -9,7 +9,7 @@ const MoneyDetails = props => {
       <img className="img" alt={alt} src={imgUrl} />
       <div className="inner-card">
         <p className="para">{text}</p>
-        <p className="para">{value}</p>
+        <p className="para"> Rs {value}</p>
       </div>
     </li>
   )

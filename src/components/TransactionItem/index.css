@@ -5,6 +5,14 @@
   border-width: 1px;
   border-color: #cbd5e1;
   list-style-type: none;
-  justify-content: space-between;
-  padding: 6px;
+  padding-left: 20px;
+  width: 100%;
+}
+.items {
+  font-size: 15px;
+  margin-right: 56px;
+}
+.image {
+  height: 20px;
+  margin: 15px;
 }

@@ -48,10 +48,7 @@ class MoneyManager extends Component {
     transactionList: [],
     titleInput: ' ',
     amountInput: '',
-    typeInput: '',
-    balance: 0,
-    income: 0,
-    expenses: 0,
+    typeInput: 'Income',
   }
 
   onTitle = event => {
@@ -59,30 +56,11 @@ class MoneyManager extends Component {
   }
 
   onAmount = event => {
-    const {typeInput} = this.state
     this.setState({amountInput: event.target.value})
-    if (typeInput === 'Income') {
-      this.setState(prevState => ({
-        balance: prevState.balance + parseInt(event.target.value),
-      }))
-      this.setState(prevState => ({
-        income: prevState.income + parseInt(event.target.value),
-      }))
-    } else {
-      this.setState(prevState => ({
-        balance: prevState.balance - parseInt(event.target.value),
-      }))
-    }
   }
 
   onType = event => {
-    const {expenses} = this.state
     this.setState({typeInput: event.target.value})
-    if (event.target.value === 'Expenses') {
-      this.setState(prevState => ({
-        expenses: prevState.expenses + expenses,
-      }))
-    }
   }
 
   onAdd = event => {
@@ -91,7 +69,7 @@ class MoneyManager extends Component {
     const newTransaction = {
       id: v4(),
       Title: titleInput,
-      Amount: amountInput,
+      Amount: parseInt(amountInput),
       Type: typeInput,
     }
     this.setState(prevState => ({
@@ -99,13 +77,58 @@ class MoneyManager extends Component {
     }))
   }
 
+  getIncome = () => {
+    let incomeAmount = 0
+    const {transactionList} = this.state
+    transactionList.forEach(each => {
+      if (each.Type === 'Income') {
+        incomeAmount = incomeAmount + each.Amount
+      }
+    })
+    return incomeAmount
+  }
+
+  getExpenses = () => {
+    let expensesAmount = 0
+    const {transactionList} = this.state
+    transactionList.forEach(each => {
+      if (each.Type === 'Expenses') {
+        expensesAmount = expensesAmount + each.Amount
+      }
+    })
+    return expensesAmount
+  }
+
+  getBalance = () => {
+    const {transactionList} = this.state
+    let balanceAmount = 0
+    transactionList.forEach(each => {
+      if (each.Type === 'Income') {
+        balanceAmount = balanceAmount + each.Amount
+      } else {
+        balanceAmount = balanceAmount - each.Amount
+      }
+    })
+    return balanceAmount
+  }
+
+  deleteItem = id => {
+    const {transactionList} = this.state
+    const updatedTransactionList = transactionList.filter(
+      each => id !== each.id,
+    )
+    this.setState({transactionList: updatedTransactionList})
+  }
+
   render() {
-    const {transactionList, balance, income, expenses} = this.state
-    moneyDetailsList[0].value = balance
-    moneyDetailsList[1].value = income
-    moneyDetailsList[2].value = expenses
-    console.log(balance)
-    console.log(expenses)
+    const {transactionList, typeInput} = this.state
+    const balanceAmount = this.getBalance()
+    const incomeAmount = this.getIncome()
+    const expensesAmount = this.getExpenses()
+    moneyDetailsList[0].value = balanceAmount
+    moneyDetailsList[1].value = incomeAmount
+    moneyDetailsList[2].value = expensesAmount
+
     return (
       <div className="bg">
         <div className="con">
@@ -123,13 +146,13 @@ class MoneyManager extends Component {
           <div className="main-div">
             <div className="form-div">
               <form className="form" onSubmit={this.onAdd}>
-                <h1>{expenses}</h1>
+                <h1>Add Transaction</h1>
                 <p>Title</p>
                 <input type="text" onChange={this.onTitle} />
                 <p>Amount</p>
                 <input type="text" onChange={this.onAmount} />
                 <p>Type</p>
-                <select onChange={this.onType}>
+                <select onChange={this.onType} id="select" value={typeInput}>
                   <option value="Income">Income</option>
                   <option value="Expenses">Expenses</option>
                 </select>
@@ -141,12 +164,16 @@ class MoneyManager extends Component {
             <ul className="result-con">
               <h1>History</h1>
               <li className="result-inner">
-                <p>Title</p>
-                <p>Amount</p>
-                <p>Type</p>
+                <p className="itemsHead">Title</p>
+                <p className="itemsHead">Amount</p>
+                <p className="itemsHead">Type</p>
               </li>
               {transactionList.map(each => (
-                <TransactionItem transactionDetails={each} key={each.id} />
+                <TransactionItem
+                  transactionDetails={each}
+                  deleteItem={this.deleteItem}
+                  key={each.id}
+                />
               ))}
             </ul>
           </div>
