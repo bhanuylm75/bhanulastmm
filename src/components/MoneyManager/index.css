@@ -3,14 +3,20 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 100vh;
+  font-family: "Roboto";
+  justify-content: center;
   align-items: center;
+}
+@media screen and (max-width:760px) {
+  .bg{
+    padding: 20px 0px 0px 0px;
+  }
 }
 .con {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
 }
 .richard {
   background-image: url('https://assets.ccbp.in/frontend/react-js/money-manager/money-manager-bg.png');
@@ -19,8 +25,17 @@
   flex-direction: column;
   width: 100%;
   padding: 15px;
-
-  justify-content: center;
+}
+@media screen and (max-width:760px) {
+  .richard{
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media screen and (max-width:760px) {
+  .richard-text{
+    text-align: center;
+  }
 }
 .heading {
   font-size: 20px;
@@ -34,7 +49,15 @@
   flex-direction: row;
   margin-top: 30px;
   justify-content: space-between;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+}
+@media screen and (max-width:760px) {
+  .un-order{
+    flex-direction: column;
+    align-items: center;
+  }
+  
 }
 .form-div {
   display: flex;
@@ -42,23 +65,34 @@
   border-style: solid;
   border-width: 1px;
   border-color: #cbd5e1;
-  width: 270px;
-  padding: 25px;
-  margin-top: 20px;
-  margin-left: 70px;
-  border-radius: 15px;
-  flex-wrap: nowrap;
-  height: 450px;
-}
-.form {
-  display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding: 20px;
+  width: 40%;
+  height: 450px;
 }
+@media screen and (max-width:760px) {
+  .form-div{
+    width: 100%;
+  }
+}
+
 .main-div {
   display: flex;
   flex-direction: row;
+  cursor: pointer;
+  justify-content: space-between;
+  max-width: 1140px;
+}
+@media screen and (max-width:760px) {
+  .main-div{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
 }
 .result-con {
   display: flex;
@@ -66,31 +100,47 @@
   border-style: solid;
   border-width: 1px;
   border-color: #cbd5e1;
-  min-width: 350px;
   margin-top: 20px;
-  margin-left: 100px;
   border-radius: 15px;
-  padding: 20px;
-  flex-wrap: wrap;
+  padding: 10px;
+  overflow: scroll;
+  height: 450px;
+  overflow: scroll;
+  width: 50%;
+}
+@media screen and (max-width:760px) {
+  .result-con{
+    width: 100%;
+  }
 }
 
-.result-inner {
+.results-inner {
   display: flex;
   flex-direction: row;
   border-style: solid;
   border-width: 1px;
   border-color: #cbd5e1;
-  list-style-type: none;
-  padding-left: 20px;
-  width: 100%;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
 }
+.item{
+  width: 30%;
+}
+
 .button {
   color: white;
   background-color: #0b69ff;
   border-radius: 5px;
   margin-top: 10px;
+  height: 30px;
+  width: 50px;
+  border-color: transparent;
 }
-.itemsHead {
-  font-size: 15px;
-  margin-right: 56px;
+.box{
+  height: 30px;
+  width: 90%;
+  cursor: pointer;
+
 }
+

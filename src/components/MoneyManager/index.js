@@ -42,10 +42,13 @@ const moneyDetailsList = [
     alt: 'expenses',
   },
 ]
+const item = localStorage.getItem('TransactionList')
+const data = JSON.parse(item)
+console.log(data)
 
 class MoneyManager extends Component {
   state = {
-    transactionList: [],
+    transactionList: data,
     titleInput: ' ',
     amountInput: '',
     typeInput: 'Income',
@@ -82,7 +85,7 @@ class MoneyManager extends Component {
     const {transactionList} = this.state
     transactionList.forEach(each => {
       if (each.Type === 'Income') {
-        incomeAmount = incomeAmount + each.Amount
+        incomeAmount += each.Amount
       }
     })
     return incomeAmount
@@ -93,7 +96,7 @@ class MoneyManager extends Component {
     const {transactionList} = this.state
     transactionList.forEach(each => {
       if (each.Type === 'Expenses') {
-        expensesAmount = expensesAmount + each.Amount
+        expensesAmount += each.Amount
       }
     })
     return expensesAmount
@@ -104,9 +107,9 @@ class MoneyManager extends Component {
     let balanceAmount = 0
     transactionList.forEach(each => {
       if (each.Type === 'Income') {
-        balanceAmount = balanceAmount + each.Amount
+        balanceAmount += each.Amount
       } else {
-        balanceAmount = balanceAmount - each.Amount
+        balanceAmount -= each.Amount
       }
     })
     return balanceAmount
@@ -128,46 +131,64 @@ class MoneyManager extends Component {
     moneyDetailsList[0].value = balanceAmount
     moneyDetailsList[1].value = incomeAmount
     moneyDetailsList[2].value = expensesAmount
+    localStorage.setItem('TransactionList', JSON.stringify(transactionList))
 
     return (
       <div className="bg">
         <div className="con">
           <div className="richard">
             <h1 className="heading">Hi Richard</h1>
-            <p>
+            <p className="richard-text">
               Welcome Back To Your <span className="span">Money Manager</span>
             </p>
           </div>
-          <ul className="un-order">
+          <div className="un-order">
             {moneyDetailsList.map(each => (
               <MoneyDetails moneyDetails={each} key={each.id} />
             ))}
-          </ul>
+          </div>
           <div className="main-div">
-            <div className="form-div">
-              <form className="form" onSubmit={this.onAdd}>
-                <h1>Add Transaction</h1>
-                <p>Title</p>
-                <input type="text" onChange={this.onTitle} />
-                <p>Amount</p>
-                <input type="text" onChange={this.onAmount} />
-                <p>Type</p>
-                <select onChange={this.onType} id="select" value={typeInput}>
-                  <option value="Income">Income</option>
-                  <option value="Expenses">Expenses</option>
-                </select>
-                <button type="submit" className="button">
-                  Add
-                </button>
-              </form>
-            </div>
-            <ul className="result-con">
+            <form className="form-div" onSubmit={this.onAdd}>
+              <h1>Add Transaction</h1>
+              <p>Title</p>
+              <input
+                type="text"
+                onChange={this.onTitle}
+                required
+                placeholder="title"
+                className="box"
+              />
+              <p>Amount</p>
+              <input
+                type="text"
+                placeholder="amount"
+                onChange={this.onAmount}
+                required
+                pattern="[0-9]*"
+                className="box"
+              />
+              <p>Type</p>
+              <select
+                className="box"
+                onChange={this.onType}
+                id="select"
+                value={typeInput}
+              >
+                <option value="Income">Income</option>
+                <option value="Expenses">Expenses</option>
+              </select>
+              <button type="submit" className="button">
+                Add
+              </button>
+            </form>
+            <div className="result-con">
               <h1>History</h1>
-              <li className="result-inner">
-                <p className="itemsHead">Title</p>
-                <p className="itemsHead">Amount</p>
-                <p className="itemsHead">Type</p>
-              </li>
+              <div className="results-inner">
+                <p className="item">Title</p>
+                <p className="item">Amount</p>
+                <p className="item">Type</p>
+                <p>Delete</p>
+              </div>
               {transactionList.map(each => (
                 <TransactionItem
                   transactionDetails={each}
@@ -175,7 +196,7 @@ class MoneyManager extends Component {
                   key={each.id}
                 />
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>

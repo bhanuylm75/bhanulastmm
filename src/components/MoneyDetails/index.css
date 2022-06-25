@@ -1,17 +1,17 @@
 .list {
   display: flex;
   flex-direction: row;
-  list-style-type: none;
-  margin-right: 50px;
-  width: 220px;
-  height: 90px;
+  width: 30%;
+  height: 100px;
   border-radius: 10px;
   padding: 10px;
+  font-family: "roboto";
 }
-.inner-con {
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
+@media screen and (max-width:760px) {
+  .list{
+    width: 100%;
+    margin-bottom: 18px;
+  }
 }
 .img {
   width: 40px;
@@ -37,5 +37,5 @@
   border-width: 1px;
 }
 .para {
-  font-size: 12px;
+  font-size: 15px;
 }

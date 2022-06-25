@@ -4,14 +4,16 @@
   border-style: solid;
   border-width: 1px;
   border-color: #cbd5e1;
-  list-style-type: none;
-  padding-left: 20px;
-  width: 100%;
-}
-.items {
+  justify-content: space-between;
   font-size: 15px;
-  margin-right: 56px;
+  padding-left: 10px;
+  padding-right: 10px;
+
 }
+.item{
+  width: 30%;
+}
+
 .image {
   height: 20px;
   margin: 15px;

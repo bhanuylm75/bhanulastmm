@@ -7,17 +7,19 @@ const TransactionItem = props => {
     deleteItem(id)
   }
   return (
-    <li className="result-inner">
-      <p className="items">{Title}</p>
-      <p className="items">{Amount}</p>
-      <p className="items">{Type}</p>
-      <img
-        alt="delete"
-        onClick={onDelete}
-        className="image"
-        src="https://assets.ccbp.in/frontend/react-js/money-manager/delete.png "
-      />
-    </li>
+    <div className="result-inner">
+      <p className="item">{Title}</p>
+      <p className="item">{Amount}</p>
+      <p className="item">{Type}</p>
+      <div>
+        <img
+          alt="delete"
+          onClick={onDelete}
+          className="image"
+          src="https://assets.ccbp.in/frontend/react-js/money-manager/delete.png "
+        />
+      </div>
+    </div>
   )
 }
 export default TransactionItem
